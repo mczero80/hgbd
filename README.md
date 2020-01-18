@@ -50,19 +50,19 @@ copy-paste and screenshots.
 
 # Commands
 
-`CdH(path);` to change Host directory  
-`CopyFindH(files);` to copy FilesFind(files) in Guest to Host  
-`CopyG(file);` to copy Host `file` to Guest in current directory  
-`CopyH(file);` to copy Guest `file` to Host  
-`DelH(file);` Delete file in Host directory  
-`DirCurH;` points to current Host directory  
-`DirH;` List files in Host directory (click a directory to navigate, or a file to CopyG)
-`ExecH(shell cmd);` Runs non-interactive command and returns text results 
-`GetURL(url);` download `url` to Guest in current directory  
-`GetURLStr(url);` return the response text of `url` as a string  
-`HCopy;` copies Guest clipboard to Host  
-`HPaste;` paste Host clipboard at cursor location  
-`ScrShot;` take screenshot to Host directory
+- `CdH(path);` to change Host directory  
+- `CopyFindH(files);` to copy FilesFind(files) in Guest to Host  - 
+- `CopyG(file);` to copy Host `file` to Guest in current directory  
+- `CopyH(file);` to copy Guest `file` to Host  
+- `DelH(file);` Delete file in Host directory  
+- `DirCurH;` points to current Host directory  
+- `DirH;` List files in Host directory (click a directory to navigate, or a file to CopyG) 
+- `ExecH(shell cmd);` Runs non-interactive command and returns text results 
+- `GetURL(url);` download `url` to Guest in current directory  
+- `GetURLStr(url);` return the response text of `url` as a string  
+- `HCopy;` copies Guest clipboard to Host  
+- `HPaste;` paste Host clipboard at cursor location  
+- `ScrShot;` take screenshot to Host directory
 
 
 # Prerequisites
