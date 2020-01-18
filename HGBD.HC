@@ -9,6 +9,7 @@
 #define HGC_DIRCURH 0x09
 #define HGC_HCOPY 0x0A
 #define HGC_HPASTE 0x0B
+#define HGC_HEXEC 0xF0
 #define HGC_NOOP 0xFF
 
 #define HGFS_BUF_SIZE 0x4000000
@@ -145,6 +146,20 @@ I64 DirH() {
   Print(HGFS_BUF);
   FreeHGBD;
   return entries;
+}
+
+U0 ExecH(U8* cmd) {
+  ZeroParamBuf;
+  MemCpy(HGBD_PARAM_BUF,cmd,StrLen(cmd)+1);
+  WriteParamBuf;
+  HGExec(HGC_HEXEC);
+  I64 size;
+  ReadParamBuf;
+  size = Str2I64(HGBD_PARAM_BUF);
+  BlkRead(HGBD,HGFS_BUF,1,(size/BLK_SIZE)+1);
+  MemSetU8(ToI64(HGFS_BUF)+size, 0x0, 1);
+  Print(HGFS_BUF);
+  FreeHGBD;
 }
 
 I64 CopyFindH(U8 *files)

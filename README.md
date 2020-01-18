@@ -7,7 +7,7 @@ NOTE: This is an older project and hasn't been updated for some time. I am provi
 
 Makes use of shared memory buffer between TempleOS Guest and Host.
 
-![HGBD](https://raw.githubusercontent.com/obecebo/hgbd/master/example.gif "Host-Guest Block Device") 
+![HGBD](https://raw.githubusercontent.com/tosrevive/hgbd/master/example.gif "Host-Guest Block Device") 
 
 # Features
 - Copy files between Host-Guest
@@ -56,9 +56,10 @@ copy-paste and screenshots.
 `CopyH(file);` to copy Guest `file` to Host  
 `DelH(file);` Delete file in Host directory  
 `DirCurH;` points to current Host directory  
-`DirH;` List files in Host directory (click a directory to navigate, or a file to CopyG)  
-`GetURL(url)` download `url` to Guest in current directory  
-`GetURLStr(url)` return the response text of `url` as a string  
+`DirH;` List files in Host directory (click a directory to navigate, or a file to CopyG)
+`ExecH(shell cmd);` Runs non-interactive command and returns text results 
+`GetURL(url);` download `url` to Guest in current directory  
+`GetURLStr(url);` return the response text of `url` as a string  
 `HCopy;` copies Guest clipboard to Host  
 `HPaste;` paste Host clipboard at cursor location  
 `ScrShot;` take screenshot to Host directory

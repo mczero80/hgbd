@@ -36,6 +36,8 @@ def builtin(data):
         HGCHPaste()
     if data == HGC_SCREENSHOT:
         HGCScreenShot()
+    if data == HGC_HEXEC:
+        HGCExecH()
 
 def ZeroParamBuf():
     os.lseek(HGBD,0,os.SEEK_SET)
@@ -110,6 +112,23 @@ def HGCCopyH():
         SetHGFSPerms(HGBD_CONF["hgfs_path"]+"/"+filename)
     logger.info("received file " + filename)
     conn.send(chr(HGC_COPYH))
+
+def HGCExecH():
+    os.lseek(HGBD,0,os.SEEK_SET)
+    HGBD_PARAM_BUF = os.read(HGBD,BLK_SIZE)
+    cmd = str(HGBD_PARAM_BUF[0:HGBD_PARAM_BUF.find('\x00')]).strip()
+    print("Command len: "+str(len(cmd)))
+    print("Got command: "+cmd)
+    p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True)
+    output = p.stdout.read()
+    output_size = len(output)
+    ZeroParamBuf()
+    os.lseek(HGBD,0,os.SEEK_SET)
+    os.write(HGBD,str(output_size))
+    os.lseek(HGBD,BLK_SIZE,os.SEEK_SET)
+    os.write(HGBD,output)
+    logger.info("host shell command")
+    conn.send(chr(HGC_HEXEC))
 
 def HGCScreenShot():
     os.lseek(HGBD,0,os.SEEK_SET)
@@ -261,6 +280,7 @@ HGC_GETURL = 0x05
 HGC_GETURLSTR = 0x06
 HGC_HCOPY = 0x0A
 HGC_HPASTE = 0x0B
+HGC_HEXEC = 0xF0
 HGC_NOOP = 0xFF
 
 HGBD_CONF = json.loads(open("/etc/hgbdd.conf","r").read())
